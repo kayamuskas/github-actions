@@ -17,7 +17,7 @@ jobs:
     env:
       TEST_JOB_ENV: 'some TEST_JOB_ENV env val'
     environment: 
-      name: test_env
+      name: test_env`
     steps:
       - name: First step
         run: echo 'First step'
@@ -54,3 +54,5 @@ jobs:
           echo '----------------------------------------------------------------------------------------------------'
           echo '${{ env.TEST_JOB_ENV }}'
           echo '----------------------------------------------------------------------------------------------------'
+          GIT_COMMIT=$(cat git.hash)
+          echo $GIT_COMMIT
