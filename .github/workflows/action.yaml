@@ -50,6 +50,7 @@ jobs:
           export ENV_TRANSFER="some value from second step"
   check-job:
     runs-on: ubuntu-latest
+    needs: [test-job]
     name: 'Some checks job'
     steps:
       - name: check step
