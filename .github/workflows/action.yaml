@@ -20,6 +20,7 @@ jobs:
       name: test_env
     steps:
       - name: First step
+        id: step_1
         run: echo 'First step'
       - name: Second step
         shell: bash
