@@ -6,6 +6,9 @@ on:
     branches:
       - main
 
+env:
+  ENV_INSIDE: "ENV_INSIDE values"
+
 jobs:
 # Build services job
   test-job:
@@ -24,3 +27,9 @@ jobs:
           echo '${{ toJSON(github.event) }}' | jq
           echo '----------------------------------------------------------------------------------------------------'
           echo '${{ github.ref }}'
+      - name: ENV step
+        run: |
+          echo '${{ env.ENV_INSIDE}}'
+          echo '----------------------------------------------------------------------------------------------------'
+          echo '${{ env.ENV_OUTSIDE}}'
+          
