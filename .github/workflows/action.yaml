@@ -17,7 +17,7 @@ jobs:
     env:
       TEST_JOB_ENV: 'some TEST_JOB_ENV env val'
     environment: 
-      name: test_env`
+      name: test_env
     steps:
       - name: First step
         run: echo 'First step'
@@ -43,6 +43,8 @@ jobs:
           echo '----------------------------------------------------------------------------------------------------'
           echo '${{ env.TEST_JOB_ENV }}'
           echo '----------------------------------------------------------------------------------------------------'
+          echo 'Check ENV transfers'
+          ENV_TRANSFER="some value from second step"
   check-job:
     runs-on: ubuntu-latest
     name: 'Some checks job'
@@ -52,7 +54,7 @@ jobs:
         run: |
           echo 'Second step'      
           echo '----------------------------------------------------------------------------------------------------'
-          echo '${{ env.TEST_JOB_ENV }}'
+          echo '${{ env.ENV_TRANSFER }}'
           echo '----------------------------------------------------------------------------------------------------'
           GIT_COMMIT=$(cat git.hash)
           echo $GIT_COMMIT
