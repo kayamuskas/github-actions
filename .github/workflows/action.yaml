@@ -1,0 +1,13 @@
+name: Test Action
+
+on:
+  workflow_dispatch:
+
+jobs:
+# Build services job
+  test-job:
+    runs-on: ubuntu-latest
+    name: 'Some test job'
+    steps:
+      - name: First step
+        run: echo 'First step'
