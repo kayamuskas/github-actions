@@ -14,6 +14,8 @@ jobs:
   test-job:
     runs-on: ubuntu-latest
     name: 'Some test job'
+    environment: 
+      name: test_env
     steps:
       - name: First step
         run: echo 'First step'
