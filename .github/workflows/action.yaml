@@ -44,7 +44,7 @@ jobs:
           echo '${{ env.TEST_JOB_ENV }}'
           echo '----------------------------------------------------------------------------------------------------'
           echo 'Check ENV transfers'
-          ENV_TRANSFER="some value from second step"
+          export ENV_TRANSFER="some value from second step"
   check-job:
     runs-on: ubuntu-latest
     name: 'Some checks job'
@@ -56,5 +56,3 @@ jobs:
           echo '----------------------------------------------------------------------------------------------------'
           echo '${{ env.ENV_TRANSFER }}'
           echo '----------------------------------------------------------------------------------------------------'
-          GIT_COMMIT=$(cat git.hash)
-          echo $GIT_COMMIT
