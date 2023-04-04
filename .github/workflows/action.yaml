@@ -26,6 +26,7 @@ jobs:
         shell: bash
         run: |
           echo 'Second step'
+          echo "action_state=yellow" >> $GITHUB_ENV
           pwd
           ls -la
           echo '----------------------------------------------------------------------------------------------------'
@@ -36,6 +37,7 @@ jobs:
           echo '${{ github.ref }}'
       - name: ENV step
         run: |
+          echo "${{ env.action_state }}" # This will output 'yellow'
           echo '${{ env.ENV_INSIDE }}'
           echo '----------------------------------------------------------------------------------------------------'
           echo '${{ vars.ENV_OUTSIDE }}'
