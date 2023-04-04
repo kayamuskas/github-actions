@@ -11,3 +11,12 @@ jobs:
     steps:
       - name: First step
         run: echo 'First step'
+      - name: Second step
+        shell: bash
+        run: |
+          echo 'Second step'
+          pwd
+          ls -la
+          echo '${{ toJSON(github.event) }}'
+          echo '--------------------------------------------------'
+          echo '${{ github.ref }}'
