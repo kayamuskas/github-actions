@@ -14,7 +14,11 @@ defaults:
     shell: bash
 
 jobs:
-# Build services job
+
+  reused-job:
+    name: test-reused-job
+    uses: ./.github/workflows/reuse.yaml
+
   test-job:
     runs-on: ubuntu-latest
     name: 'Some test job'
@@ -23,10 +27,6 @@ jobs:
     environment: 
       name: test_env_2
     steps:
-      - name: Reused step
-        uses: ./.github/workflows/reuse.yaml
-        with:
-          req: "Olololo"
       - name: First step
         id: step_1
         run: echo 'First step'
