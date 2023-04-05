@@ -25,6 +25,8 @@ jobs:
     steps:
       - name: Reused step
         uses: ./.github/workflows/reuse.yaml
+        with:
+          req: "Olololo"
       - name: First step
         id: step_1
         run: echo 'First step'

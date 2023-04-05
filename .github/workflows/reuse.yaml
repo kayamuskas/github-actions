@@ -1,4 +1,4 @@
-name: "Slack start notify"
+name: "Req get and print"
 
 on:
   workflow_call:
