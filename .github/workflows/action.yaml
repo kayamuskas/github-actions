@@ -23,6 +23,8 @@ jobs:
     environment: 
       name: test_env_2
     steps:
+      - name: Reused step
+        uses: ./.github/workflows/reuse.yaml
       - name: First step
         id: step_1
         run: echo 'First step'
