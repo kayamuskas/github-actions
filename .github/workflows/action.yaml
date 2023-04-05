@@ -10,9 +10,8 @@ env:
   ENV_INSIDE: "ENV_INSIDE values"
 
 defaults:
-  run: |
-    echo 
-
+  run:
+    shell: bash
 
 jobs:
 # Build services job
