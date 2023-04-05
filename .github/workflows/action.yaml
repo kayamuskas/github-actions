@@ -21,7 +21,7 @@ jobs:
     env:
       TEST_JOB_ENV: 'some TEST_JOB_ENV env val'
     environment: 
-      name: test_env
+      name: test_env_2
     steps:
       - name: First step
         id: step_1
