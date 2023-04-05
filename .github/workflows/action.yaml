@@ -9,6 +9,11 @@ on:
 env:
   ENV_INSIDE: "ENV_INSIDE values"
 
+defaults:
+  run: |
+    echo 
+
+
 jobs:
 # Build services job
   test-job:
