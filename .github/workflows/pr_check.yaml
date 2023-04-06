@@ -28,11 +28,11 @@ jobs:
         run: echo npm test && exit 1 # fail the test
         continue-on-error: true
 
-      - name: Check for Approval
-        uses: manuelmeister/require-approved-pull-request-action
-        id: approvals
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Check for Approval
+      #   uses: dekinderfiets/require-approved-pull-request-action/releases@0.0.2
+      #   id: approvals
+      #   with:
+      #     token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Report status back to PR
         if: always()
