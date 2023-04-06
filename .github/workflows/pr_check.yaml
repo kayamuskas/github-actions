@@ -1,0 +1,43 @@
+name: PR Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2.4.0
+        with:
+          node-version: 14.x
+
+      - name: Install dependencies
+        run: echo npm install
+
+      - name: Lint
+        run: echo npm run lint
+        continue-on-error: true
+
+      - name: Test
+        run: echo npm test && exit 1 # fail the test
+        continue-on-error: true
+
+      - name: Check for Approval
+        uses: manuelmeister/require-approved-pull-request-action
+        id: approvals
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Report status back to PR
+        if: always()
+        uses: alawiii521/current-pr-comment@v1.0
+        with:
+          comment: "Hello world! ${{ steps.approvals.outputs.required }} -- ${{ steps.approvals.outputs.received }} "
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
