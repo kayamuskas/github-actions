@@ -18,26 +18,30 @@ jobs:
           node-version: 14.x
 
       - name: Install dependencies
-        run: echo npm install
+        run: echo npm install && exit 1 # fail the test
+        continue-on-error: false
 
       - name: Lint
         run: echo npm run lint
         continue-on-error: true
 
       - name: Test
-        run: echo npm test && exit 1 # fail the test
+        run: echo npm test
         continue-on-error: true
 
-      # - name: Check for Approval
-      #   uses: dekinderfiets/require-approved-pull-request-action/releases@0.0.2
-      #   id: approvals
-      #   with:
-      #     token: ${{ secrets.GITHUB_TOKEN }}
-
-      # - name: Report status back to PR
-      #   if: always()
-      #   uses: alawiii521/current-pr-comment@v1.0
-      #   with:
-      #     comment: "Hello world! ${{ steps.approvals.outputs.required }} -- ${{ steps.approvals.outputs.received }} "
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+      - name: Update PR status
+        if: always()
+        run: |
+          PR_NUMBER=$(echo "${GITHUB_REF}" | awk 'BEGIN { FS="/" } { print $3 }')
+          REQUIRED_APPROVALS=${{ steps.approvals.outputs.required }}
+          APPROVALS_RECEIVED=${{ steps.approvals.outputs.received }}
+          if [ "$REQUIRED_APPROVALS" -eq 0 ] || [ "$APPROVALS_RECEIVED" -ge "$REQUIRED_APPROVALS" ]; then
+            STATE="success"
+            DESCRIPTION="All required approvals received."
+          else
+            STATE="failure"
+            DESCRIPTION="Waiting for $((REQUIRED_APPROVALS - APPROVALS_RECEIVED)) more approvals."
+          fi
+          URL="https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}"
+          DATA=$(echo '{}' | jq --arg state "${STATE}" --arg desc "${DESCRIPTION}" --arg url "${URL}" '.state=$state | .description=$desc | .target_url=$url')
+          curl -s -X POST -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -d "$DATA" "$URL"
