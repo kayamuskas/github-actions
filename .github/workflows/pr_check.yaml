@@ -34,10 +34,10 @@ jobs:
       #   with:
       #     token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Report status back to PR
-        if: always()
-        uses: alawiii521/current-pr-comment@v1.0
-        with:
-          comment: "Hello world! ${{ steps.approvals.outputs.required }} -- ${{ steps.approvals.outputs.received }} "
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Report status back to PR
+      #   if: always()
+      #   uses: alawiii521/current-pr-comment@v1.0
+      #   with:
+      #     comment: "Hello world! ${{ steps.approvals.outputs.required }} -- ${{ steps.approvals.outputs.received }} "
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
