@@ -17,7 +17,8 @@ jobs:
 
   reused-job:
     name: test-reused-job
-    uses: ./.github/workflows/reuse.yaml
+    #uses: ./.github/workflows/reuse.yaml
+    uses: kayamuskas/workflows/.github/reuse.yaml@main
 
   test-job:
     runs-on: ubuntu-latest
