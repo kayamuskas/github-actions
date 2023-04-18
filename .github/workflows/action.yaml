@@ -16,12 +16,9 @@ defaults:
 jobs:
 
   reused-job:
-    steps:
-      - name: Set branch name
-        run: echo "::set-output name=branch_name::$(echo ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}})"
-      - name: test-reused-job
-        #uses: ./.github/workflows/reuse.yaml
-        uses: kayamuskas/workflows/.github/workflows/reuse.yaml@main
+    - name: test-reused-job
+      #uses: ./.github/workflows/reuse.yaml
+      uses: kayamuskas/workflows/.github/workflows/reuse.yaml@main
 
   test-job:
     runs-on: ubuntu-latest
@@ -31,6 +28,8 @@ jobs:
     environment: 
       name: test_env_2
     steps:
+      - name: Set branch name
+        run: echo "::set-output name=branch_name::$(echo ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}})"
       - name: First step
         id: step_1
         run: echo 'First step'
