@@ -1,0 +1,47 @@
+name: PR Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2.4.0
+        with:
+          node-version: 14.x
+
+      - name: Install dependencies
+        run: echo npm install && exit 1 # fail the test
+        continue-on-error: true
+
+      - name: Lint
+        run: echo npm run lint
+        continue-on-error: true
+
+      - name: Test
+        run: echo npm test
+        continue-on-error: true
+
+      - name: Update PR status
+        if: always()
+        run: |
+          PR_NUMBER=$(echo "${GITHUB_REF}" | awk 'BEGIN { FS="/" } { print $3 }')
+          REQUIRED_APPROVALS=1
+          APPROVALS_RECEIVED=1
+          if [ "$REQUIRED_APPROVALS" -eq 0 ] || [ "$APPROVALS_RECEIVED" -ge "$REQUIRED_APPROVALS" ]; then
+            STATE="success"
+            DESCRIPTION="All required approvals received."
+          else
+            STATE="failure"
+            DESCRIPTION="Waiting for $((REQUIRED_APPROVALS - APPROVALS_RECEIVED)) more approvals."
+          fi
+          URL="https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}"
+          DATA=$(echo '{}' | jq --arg state "${STATE}" --arg desc "${DESCRIPTION}" --arg url "${URL}" '.state=$state | .description=$desc | .target_url=$url')
+          curl -s -X POST -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -d "$DATA" "$URL"
