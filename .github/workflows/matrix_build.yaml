@@ -22,7 +22,7 @@ jobs:
           input: './.scripts/services_matrix_config.yaml'
           from: 'yaml'
           to: 'json'
-      - name: Print json2yaml result
+      - name: Print yaml2json result
         run: echo "${{ steps.yaml2json.outputs.output }}"
         continue-on-error: false
     outputs:
@@ -36,6 +36,21 @@ jobs:
         run: |
           echo "Services: ${{ inputs.services }}"
 
+  build-job:
+    strategy:
+      matrix:
+        service: ${{ inputs.services }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+        run: |
+          for key in ${{ inputs.services }}; do
+            echo "$key ${{ matrix.services.key }}"
+          done
+          # echo "ECS_SERVICE=${{ matrix.ECS_SERVICE }}"
+          # echo "PROJECT_NAME=${{ matrix.PROJECT_NAME }}"
+          # echo "SERVICE_PATH=${{ matrix.SERVICE_PATH }}"
 
   # build:
   #   strategy:
