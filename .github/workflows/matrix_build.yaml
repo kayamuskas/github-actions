@@ -37,14 +37,16 @@ jobs:
           echo "Services: ${{ inputs.services }}"
 
   build-job:
+    name: Main build job
+    needs: [matrix_config]
     # strategy:
     #   matrix:
     #     service: ${{ inputs.services }}
     runs-on: ubuntu-latest
     steps:
-      - name: Build
+      - name: Parse values
         run: |
-          echo "${{ steps.yaml2json.outputs.output }}"
+          echo "${{ needs.matrix_config.outputs }}"
           # for key in ${{ inputs.services }}; do
           #   echo "$key ${{ matrix.services.key }}"
           # done
