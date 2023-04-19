@@ -21,7 +21,7 @@ jobs:
       - name: Parse JSON output
         id: parse_output
         run: |
-          echo "${{ fromJSON(steps.matrix_config.outputs.matrix_config) }}"
+          echo ${{ fromJSON(steps.matrix_config.outputs.matrix_config) }}
       
       - name: Print output to console
         run: echo ${{ steps.parse_output.outputs }}
