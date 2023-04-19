@@ -1,0 +1,17 @@
+name: Test maxtrix re-use action
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+    build_services:
+      runs-on: ubuntu-latest
+      steps:
+      - name: Call reusable workflow for services
+        uses: ./.github/workflows/matrix_build.yaml
+        with:
+          services: '["api-1", "api-3"]'
+  
