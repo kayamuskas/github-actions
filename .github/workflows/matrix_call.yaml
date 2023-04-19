@@ -11,7 +11,7 @@ jobs:
       runs-on: ubuntu-latest
       steps:
       - name: Call reusable workflow for services
-        uses: ./.github/actions/build-service
+        uses: ./.github/workflows/matrix_build.yaml@main
         with:
           services: '["api-1", "api-3"]'
   
