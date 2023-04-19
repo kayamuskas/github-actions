@@ -10,7 +10,7 @@ jobs:
   build:
     strategy:
       matrix:
-        service: ${{ fromYaml(file.path('./services_matrix_config.yaml')) }}
+        service: ${{ fromYaml(file.path('./.scripts/services_matrix_config.yaml')) }}
         include:
           - service: ${{fromJson(inputs.services)}}
             build: true
