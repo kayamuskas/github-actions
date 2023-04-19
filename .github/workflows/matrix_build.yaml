@@ -15,18 +15,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: fabasoad/yaml-json-xml-converter-action@main
+      - uses: fabasoad/data-format-converter-action@main
         name: Get matrix config
         id: yaml2json
         with:
-          path: './.scripts/services_matrix_config.yaml'
+          input: './.scripts/services_matrix_config.yaml'
           from: 'yaml'
           to: 'json'
       - name: Print json2yaml result
-        run: echo "${{ steps.json2yaml.outputs.data }}"
+        run: echo "${{ steps.yaml2json.outputs.output }}"
         continue-on-error: false
     outputs:
-      matrix-config: ${{ steps.matrix-config.outputs.stdout }}
+      matrix-config: ${{ steps.yaml2json.outputs.stdout }}
 
   # build:
   #   strategy:
