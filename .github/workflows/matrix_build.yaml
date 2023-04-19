@@ -10,20 +10,36 @@ on:
         default: sample
 
 jobs:
-  build:
-    strategy:
-      matrix:
-        service: ${{ fromYaml(file.path('./.scripts/services_matrix_config.yaml')) }}
-        include:
-          - service: ${{fromJson(inputs.services)}}
-            build: true
+  matrix_config:
+    name: Get matrix config
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Build Service
-        if: matrix.build == 'true'
+      - uses: actions/checkout@v2
+      - name: Get matrix config
+        id: matrix-config
         run: |
-          echo "Building ${{ matrix.service.ECS_SERVICE }}"
-          echo "Using project name: ${{ matrix.service.PROJECT_NAME }}"
-          echo "Using service path: ${{ matrix.service.SERVICE_PATH }}"
+          curl -sSL https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64 -o /usr/local/bin/yq
+          chmod +x /usr/local/bin/yq
+          yq eval '.' ./.scripts/services_matrix_config.yaml > matrix_config.json
+        continue-on-error: false
+    outputs:
+      matrix-config: ${{ steps.matrix-config.outputs.stdout }}
+
+  # build:
+  #   strategy:
+  #     matrix:
+  #       service: '${{ toJSON(file.path('./.scripts/services_matrix_config.yaml')) }}'
+  #       #matrix-config: '${{ toJSON(fromFile(".scripts/services_matrix_config.yml")) }}'
+  #       include:
+  #         - service: ${{fromJson(inputs.services)}}
+  #           build: true
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code # ???
+  #       uses: actions/checkout@v2
+  #     - name: Build Service
+  #       if: matrix.build == 'true'
+  #       run: |
+  #         echo "Building ${{ matrix.service.ECS_SERVICE }}"
+  #         echo "Using project name: ${{ matrix.service.PROJECT_NAME }}"
+  #         echo "Using service path: ${{ matrix.service.SERVICE_PATH }}"
