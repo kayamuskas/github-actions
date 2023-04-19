@@ -10,49 +10,65 @@ on:
         default: sample
 
 jobs:
-  matrix_config:
-    name: Get matrix config
+  my-job:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: fabasoad/data-format-converter-action@main
-        name: Get matrix config
-        id: yaml2json
-        with:
-          input: './.scripts/services_matrix_config.yaml'
-          from: 'yaml'
-          to: 'json'
-      - name: Print yaml2json result
-        run: echo "${{ steps.yaml2json.outputs.output }}"
-        continue-on-error: false
-    outputs:
-      matrix-config: ${{ steps.yaml2json.outputs.stdout }}
-
-  reusable-job:
-    name: Reusable workflow job for services
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get services parameter
+      - name: Retrieve matrix_config output
         run: |
-          echo "Services: ${{ inputs.services }}"
+          echo ::set-output name=matrix_config::'[{"ECS_SERVICE": "api-1", "PROJECT_NAME": "Platform.Api.1", "SERVICE_PATH": "api-1"}, {"ECS_SERVICE": "api-2", "PROJECT_NAME": "Platform.Api.2", "SERVICE_PATH": "api-2"}, {"ECS_SERVICE": "api-3", "PROJECT_NAME": "Platform.Api.3", "SERVICE_PATH": "api-3"}]'
+        id: matrix_config
 
-  build-job:
-    name: Main build job
-    needs: [matrix_config]
-    # strategy:
-    #   matrix:
-    #     service: ${{ inputs.services }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Parse values
-        run: |
-          echo "${{ fromJSON(needs.matrix_config.outputs) }}"
-          # for key in ${{ inputs.services }}; do
-          #   echo "$key ${{ matrix.services.key }}"
-          # done
-          # # echo "ECS_SERVICE=${{ matrix.ECS_SERVICE }}"
-          # # echo "PROJECT_NAME=${{ matrix.PROJECT_NAME }}"
-          # # echo "SERVICE_PATH=${{ matrix.SERVICE_PATH }}"
+      - name: Parse JSON output
+        id: parse_output
+        run: echo "${{ steps.matrix_config.outputs.matrix_config }}" | jq -r '. | @json' | fromJSON
+      
+      - name: Print output to console
+        run: echo ${{ steps.parse_output.outputs.result }}
+
+# jobs:
+#   matrix_config:
+#     name: Get matrix config
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: fabasoad/data-format-converter-action@main
+#         name: Get matrix config
+#         id: yaml2json
+#         with:
+#           input: './.scripts/services_matrix_config.yaml'
+#           from: 'yaml'
+#           to: 'json'
+#       - name: Print yaml2json result
+#         run: echo "${{ steps.yaml2json.outputs.output }}"
+#         continue-on-error: false
+#     outputs:
+#       matrix-config: ${{ steps.yaml2json.outputs.stdout }}
+
+#   reusable-job:
+#     name: Reusable workflow job for services
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Get services parameter
+#         run: |
+#           echo "Services: ${{ inputs.services }}"
+
+#   build-job:
+#     name: Main build job
+#     needs: [matrix_config]
+#     # strategy:
+#     #   matrix:
+#     #     service: ${{ inputs.services }}
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Parse values
+#         run: |
+#           echo "${{ fromJSON(needs.matrix_config.outputs) }}"
+#           # for key in ${{ inputs.services }}; do
+#           #   echo "$key ${{ matrix.services.key }}"
+#           # done
+#           # # echo "ECS_SERVICE=${{ matrix.ECS_SERVICE }}"
+#           # # echo "PROJECT_NAME=${{ matrix.PROJECT_NAME }}"
+#           # # echo "SERVICE_PATH=${{ matrix.SERVICE_PATH }}"
 
   # build:
   #   strategy:
