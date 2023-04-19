@@ -21,12 +21,12 @@ jobs:
       - name: Parse JSON output
         id: parse_output
         run: |
-          echo "${{ steps.matrix_config.outputs.matrix_config }}"
+          #echo "${{ steps.matrix_config.outputs.matrix_config }}"
           echo "${{ fromJSON(steps.matrix_config.outputs.matrix_config).ECS_SERVICE }}"
           #echo "${{ steps.matrix_config.outputs.matrix_config }}" | jq -r '. | @json' | fromJSON
       
       - name: Print output to console
-        run: echo ${{ steps.parse_output.outputs.result }}
+        run: echo ${{ steps.parse_output.outputs }}
 
 # jobs:
 #   matrix_config:
