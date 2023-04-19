@@ -7,8 +7,25 @@ on:
       - main
 
 jobs:
+  matrix_config:
+    name: Get matrix config
+    id: matrix-config
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get matrix config
+        run: |
+          curl -sSL https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64 -o /usr/local/bin/yq
+          chmod +x /usr/local/bin/yq
+          yq eval '.' ./.scripts/services_matrix_config.yaml > matrix_config.json
+        id: config
+        continue-on-error: true
+    outputs:
+      matrix-config: ${{ steps.config.outputs.stdout }}
+
   calling-job:
     name: Call reusable workflow for services
     uses: ./.github/workflows/matrix_build.yaml
     with:
       services: '["api-1", "api-3"]'
+      matrix-config: ${{ fromJSON(steps.matrix_config.outputs.matrix-config) }}
