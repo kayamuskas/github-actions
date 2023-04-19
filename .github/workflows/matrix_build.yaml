@@ -15,12 +15,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Get matrix config
-        id: matrix-config
-        run: |
-          curl -sSL https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64 -o /usr/local/bin/yq
-          chmod +x /usr/local/bin/yq
-          yq eval '.' ./.scripts/services_matrix_config.yaml > matrix_config.json
+      - uses: fabasoad/yaml-json-xml-converter-action@main
+        name: Get matrix config
+        id: yaml2json
+        with:
+          path: './.scripts/services_matrix_config.yaml'
+          from: 'yaml'
+          to: 'json'
+      - name: Print json2yaml result
+        run: echo "${{ steps.json2yaml.outputs.data }}"
         continue-on-error: false
     outputs:
       matrix-config: ${{ steps.matrix-config.outputs.stdout }}
