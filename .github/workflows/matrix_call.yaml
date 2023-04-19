@@ -9,9 +9,11 @@ on:
 jobs:
     build_services:
       runs-on: ubuntu-latest
-      steps:
-      - name: Call reusable workflow for services
-        uses: ./.github/workflows/matrix_build.yaml@main
-        with:
-          services: '["api-1", "api-3"]'
+      steps: 
+        - name: Checkout code
+          uses: actions/checkout@v2
+        - name: Call reusable workflow for services
+          uses: ./.github/workflows/matrix_build.yaml@main
+          with:
+            services: '["api-1", "api-3"]'
   
