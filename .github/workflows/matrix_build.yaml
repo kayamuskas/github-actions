@@ -40,17 +40,17 @@ jobs:
     strategy:
       matrix:
         service: ${{ inputs.services }}
-
     runs-on: ubuntu-latest
     steps:
       - name: Build
         run: |
-          for key in ${{ inputs.services }}; do
-            echo "$key ${{ matrix.services.key }}"
-          done
-          # echo "ECS_SERVICE=${{ matrix.ECS_SERVICE }}"
-          # echo "PROJECT_NAME=${{ matrix.PROJECT_NAME }}"
-          # echo "SERVICE_PATH=${{ matrix.SERVICE_PATH }}"
+          echo "${{ steps.yaml2json.outputs.output }}"
+          # for key in ${{ inputs.services }}; do
+          #   echo "$key ${{ matrix.services.key }}"
+          # done
+          # # echo "ECS_SERVICE=${{ matrix.ECS_SERVICE }}"
+          # # echo "PROJECT_NAME=${{ matrix.PROJECT_NAME }}"
+          # # echo "SERVICE_PATH=${{ matrix.SERVICE_PATH }}"
 
   # build:
   #   strategy:
