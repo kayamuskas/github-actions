@@ -46,7 +46,7 @@ jobs:
     steps:
       - name: Parse values
         run: |
-          echo "${{ needs.matrix_config.outputs }}"
+          echo "${{ fromJSON(needs.matrix_config.outputs) }}"
           # for key in ${{ inputs.services }}; do
           #   echo "$key ${{ matrix.services.key }}"
           # done
