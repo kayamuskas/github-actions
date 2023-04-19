@@ -37,9 +37,9 @@ jobs:
           echo "Services: ${{ inputs.services }}"
 
   build-job:
-    strategy:
-      matrix:
-        service: ${{ inputs.services }}
+    # strategy:
+    #   matrix:
+    #     service: ${{ inputs.services }}
     runs-on: ubuntu-latest
     steps:
       - name: Build
