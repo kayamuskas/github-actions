@@ -15,13 +15,13 @@ jobs:
     steps:
       - name: Retrieve matrix_config output
         run: |
-          echo ::set-output name=matrix_config::'[{"ECS_SERVICE": "api-1", "PROJECT_NAME": "Platform.Api.1", "SERVICE_PATH": "api-1"}, {"ECS_SERVICE": "api-2", "PROJECT_NAME": "Platform.Api.2", "SERVICE_PATH": "api-2"}, {"ECS_SERVICE": "api-3", "PROJECT_NAME": "Platform.Api.3", "SERVICE_PATH": "api-3"}]'
+          echo ::set-output name=services::'[{"ECS_SERVICE": "api-1", "PROJECT_NAME": "Platform.Api.1", "SERVICE_PATH": "api-1"}, {"ECS_SERVICE": "api-2", "PROJECT_NAME": "Platform.Api.2", "SERVICE_PATH": "api-2"}, {"ECS_SERVICE": "api-3", "PROJECT_NAME": "Platform.Api.3", "SERVICE_PATH": "api-3"}]'
         id: matrix_config
 
       - name: Parse JSON output
         id: parse_output
         run: |
-          echo ${{ fromJSON(steps.matrix_config.outputs.matrix_config) }}
+          echo ${{ fromJSON(steps.matrix_config.services) }}
       
       - name: Print output to console
         run: echo ${{ steps.parse_output.outputs }}
