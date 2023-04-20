@@ -13,6 +13,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+  reused-job:
+    name: test-reused-job
+    #uses: ./.github/workflows/reuse.yaml
+    uses: kayamuskas/workflows/.github/workflows/reuse.yaml@main
+
   calling-job:
     needs: [setup]
     name: Call reusable workflow for services
