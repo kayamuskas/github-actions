@@ -20,7 +20,8 @@ jobs:
     name: branch-test
     runs-on: ubuntu-latest
     steps:
-      - run: echo $buildConfiguration
+      - run: |
+        echo $buildConfiguration
 
   reused-job:
     name: test-reused-job
