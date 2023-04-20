@@ -28,9 +28,9 @@ jobs:
     uses: kayamuskas/workflows/.github/workflows/reuse.yaml@main
     #with:
       #secret: ${{ vars.ENV_OUTSIDE }}
-    secrets: inherit
-    #secrets:
-    #  SECRET_KEY: ${{ secrets.SOME_SECRET }}
+    #secrets: inherit
+    secrets:
+      SECRET_KEY: ${{ env.buildConfiguration }}
 
   calling-job:
     needs: [setup]
