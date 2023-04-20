@@ -18,23 +18,25 @@ jobs:
       - uses: actions/checkout@v3
 
   only-branch-test-job:
+    environment: env_1
     name: branch-test
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{ env.buildConfiguration }}
 
   reused-job:
+    environment: env_2
     name: test-reused-job
     #uses: ./.github/workflows/reuse.yaml
     uses: kayamuskas/workflows/.github/workflows/reuse.yaml@main
-    with:
-      test_secret: "${{ env.buildConfiguration }}" # <- here's bug
+    #with:
+     # test_secret: "${{ env.buildConfiguration }}" # <- here's bug
       #test_secret: "just test"
     #secrets: inherit
-    #secrets:
+    secrets:
      # SECRET_KEY: $buildConfiguration
       #SECRET_KEY: ${{ env.buildConfiguration }}
-      #SECRET_KEY: ${{ secrets.SOME_SECRET }}
+      SECRET_KEY: ${{ secrets.SOME_SECRET }}
 
   calling-job:
     needs: [setup]
