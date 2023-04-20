@@ -1,0 +1,17 @@
+[
+   {
+      "ECS_SERVICE":"api-1",
+      "PROJECT_NAME":"Platform.Api.1",
+      "SERVICE_PATH":"api-1"
+   },
+   {
+      "ECS_SERVICE":"api-2",
+      "PROJECT_NAME":"Platform.Api.2",
+      "SERVICE_PATH":"api-2"
+   },
+   {
+      "ECS_SERVICE":"api-3",
+      "PROJECT_NAME":"Platform.Api.3",
+      "SERVICE_PATH":"api-3"
+   }
+]

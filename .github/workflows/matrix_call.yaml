@@ -7,7 +7,14 @@ on:
       - main
 
 jobs:
+  setup:
+    name: Setup variables
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
   calling-job:
+    needs: [setup]
     name: Call reusable workflow for services
     uses: ./.github/workflows/matrix_build.yaml
     with:
