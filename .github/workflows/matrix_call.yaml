@@ -28,7 +28,8 @@ jobs:
     #uses: ./.github/workflows/reuse.yaml
     uses: kayamuskas/workflows/.github/workflows/reuse.yaml@main
     with:
-      test_secret: $buildConfiguration
+      #test_secret: $buildConfiguration
+      test_secret: "just test"
     #secrets: inherit
     #secrets:
      # SECRET_KEY: $buildConfiguration
