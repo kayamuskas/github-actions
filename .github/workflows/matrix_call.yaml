@@ -25,7 +25,7 @@ jobs:
       - run: echo ${{ env.buildConfiguration }}
 
   reused-job:
-    environment: env_2
+    #environment: env_2
     name: test-reused-job
     #uses: ./.github/workflows/reuse.yaml
     uses: kayamuskas/workflows/.github/workflows/reuse.yaml@main
