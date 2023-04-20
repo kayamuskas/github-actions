@@ -20,7 +20,7 @@ jobs:
     #with:
       #secret: ${{ vars.ENV_OUTSIDE }}
     secrets:
-      secret: ${{ secrets.SOME_SECRET }}
+      SECRET_KEY: ${{ secrets.SOME_SECRET }}
 
   calling-job:
     needs: [setup]
