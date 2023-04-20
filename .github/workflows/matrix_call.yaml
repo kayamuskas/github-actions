@@ -7,7 +7,7 @@ on:
       - main
 
 env:
-  buildConfiguration: "Release"
+  buildConfiguration: '${{ secrets.SOME_SECRET }}'
 
 jobs:
   setup:
