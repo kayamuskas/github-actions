@@ -21,8 +21,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-        echo thats only that branch
-        echo env.buildConfiguration
+        echo 'thats only that branch'
+        echo 'env.buildConfiguration'
 
   reused-job:
     name: test-reused-job
