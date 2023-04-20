@@ -7,7 +7,8 @@ on:
       - main
 
 env:
-  buildConfiguration: '${{ secrets.SOME_SECRET }}'
+  #buildConfiguration: '${{ secrets.SOME_SECRET }}'
+  buildConfiguration: 'tipa release'
 
 jobs:
   setup:
