@@ -18,7 +18,7 @@ jobs:
     #uses: ./.github/workflows/reuse.yaml
     uses: kayamuskas/workflows/.github/workflows/reuse.yaml@main
     with:
-      secret: test-secret-value
+      secret: ${{ secrets.SOME_SECRET }}
 
   calling-job:
     needs: [setup]
