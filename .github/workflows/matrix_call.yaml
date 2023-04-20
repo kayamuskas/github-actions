@@ -6,6 +6,9 @@ on:
     branches:
       - main
 
+env:
+  buildConfiguration: "Release"
+
 jobs:
   setup:
     name: Setup variables
@@ -17,7 +20,9 @@ jobs:
     name: branch-test
     runs-on: ubuntu-latest
     steps:
-      - run: echo thats only that branch
+      - run: |
+        echo thats only that branch
+        echo env.buildConfiguration
 
   reused-job:
     name: test-reused-job
