@@ -26,8 +26,8 @@ jobs:
     name: test-reused-job
     #uses: ./.github/workflows/reuse.yaml
     uses: kayamuskas/workflows/.github/workflows/reuse.yaml@main
-    #with:
-      #secret: ${{ vars.ENV_OUTSIDE }}
+    with:
+      test_secret: ${{ env.buildConfiguration }}
     #secrets: inherit
     secrets:
       #SECRET_KEY: ${{ env.buildConfiguration }}
