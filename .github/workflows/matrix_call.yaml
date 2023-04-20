@@ -30,7 +30,8 @@ jobs:
       #secret: ${{ vars.ENV_OUTSIDE }}
     #secrets: inherit
     secrets:
-      SECRET_KEY: ${{ env.buildConfiguration }}
+      #SECRET_KEY: ${{ env.buildConfiguration }}
+      SECRET_KEY: ${{ secrets.SOME_SECRET }}
 
   calling-job:
     needs: [setup]
