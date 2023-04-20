@@ -18,7 +18,8 @@ jobs:
     #uses: ./.github/workflows/reuse.yaml
     uses: kayamuskas/workflows/.github/workflows/reuse.yaml@main
     with:
-      secret: ${{ secrets.SOME_SECRET }}
+      #secret: ${{ secrets.SOME_SECRET }}
+      secret: ${{ env.ENV_OUTSIDE }}
 
   calling-job:
     needs: [setup]
