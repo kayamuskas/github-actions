@@ -17,6 +17,7 @@ jobs:
     name: test-reused-job
     #uses: ./.github/workflows/reuse.yaml
     uses: kayamuskas/workflows/.github/workflows/reuse.yaml@main
+      with: 'test-secret'
 
   calling-job:
     needs: [setup]
