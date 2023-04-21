@@ -27,18 +27,22 @@ jobs:
       - run: echo ${{ vars.ENV_OUTSIDE }}
 
   reused-job:
-    environment: env_2
+    #environment: env_2
+    #runs-on: ubuntu-latest
     name: test-reused-job
     #uses: ./.github/workflows/reuse.yaml
     uses: kayamuskas/workflows/.github/workflows/reuse.yaml@main
-    #with:
+    with:
+      environment: env_1
      # test_secret: "${{ env.buildConfiguration }}" # <- here's bug
       #test_secret: "just test"
     #secrets: inherit
     secrets:
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+    #secrets:
      # SECRET_KEY: $buildConfiguration
       #SECRET_KEY: ${{ env.buildConfiguration }}
-      SECRET_KEY: ${{ secrets.SOME_SECRET }}
+      #SECRET_KEY: ${{ secrets.SOME_SECRET }}
 
   calling-job:
     needs: [setup]
