@@ -11,10 +11,6 @@ on:
         options:
           - env_1
           - env_2
-      print_tags:
-        description: 'True to print to STDOUT'
-        required: true
-        type: boolean
 
   push:
     branches:
@@ -32,12 +28,12 @@ jobs:
       - uses: actions/checkout@v3
 
   only-branch-test-job:
-    environment: env_2
+    environment: ${{ github.event.inputs.environment }}
     name: branch-test
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{ env.buildConfiguration }}
-      - run: "echo var for env2 is: ${{ vars.ENV_VAR }}"
+      - run: "echo var for ${{ github.event.inputs.environment }} is: ${{ vars.ENV_VAR }}"
       - run: echo ${{ vars.ENV_OUTSIDE }}
 
   reused-job:
