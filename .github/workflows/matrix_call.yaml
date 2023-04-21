@@ -4,9 +4,16 @@ on:
   workflow_dispatch:
     inputs:
       environment:
+        type: choice
         description: "Environment to deploy"
         required: true
         default: "env_1"
+        options:
+          - Development
+          - QA
+          - UAT
+          - Production
+
   push:
     branches:
       - main
@@ -49,11 +56,11 @@ jobs:
       #SECRET_KEY: ${{ env.buildConfiguration }}
       #SECRET_KEY: ${{ secrets.SOME_SECRET }}
 
-  calling-job:
-    needs: [setup]
-    name: Call reusable workflow for services
-    uses: ./.github/workflows/matrix_build.yaml
-    with:
-      services: '["api-1",
-                  "api-3"
-        ]'
+  # calling-job:
+  #   needs: [setup]
+  #   name: Call reusable workflow for services
+  #   uses: ./.github/workflows/matrix_build.yaml
+  #   with:
+  #     services: '["api-1",
+  #                 "api-3"
+  #       ]'
