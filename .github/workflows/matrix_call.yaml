@@ -9,10 +9,12 @@ on:
         required: true
         default: "env_1"
         options:
-          - Development
-          - QA
-          - UAT
-          - Production
+          - env_1
+          - env_2
+      print_tags:
+        description: 'True to print to STDOUT'
+        required: true
+        type: boolean
 
   push:
     branches:
