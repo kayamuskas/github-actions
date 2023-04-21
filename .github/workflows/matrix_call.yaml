@@ -2,6 +2,11 @@ name: Main Workflow
 
 on:
   workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to deploy"
+        required: true
+        default: "env_1"
   push:
     branches:
       - main
@@ -33,7 +38,7 @@ jobs:
     #uses: ./.github/workflows/reuse.yaml
     uses: kayamuskas/workflows/.github/workflows/reuse.yaml@main
     with:
-      environment: env_1
+      environment: ${{ github.event.inputs.environment }}
      # test_secret: "${{ env.buildConfiguration }}" # <- here's bug
       #test_secret: "just test"
     #secrets: inherit
