@@ -22,10 +22,9 @@ jobs:
     name: branch-test
     runs-on: ubuntu-latest
     steps:
-      - run: |
-        echo ${{ env.buildConfiguration }}
-        echo var for env2 is: ${{ vars.ENV_VAR }}
-        echo ${{ vars.ENV_OUTSIDE }}
+      - run: echo ${{ env.buildConfiguration }}
+      - run: echo var for env2 is: ${{ vars.ENV_VAR }}
+      - run: echo ${{ vars.ENV_OUTSIDE }}
 
   # reused-job:
   #   #environment: env_2
