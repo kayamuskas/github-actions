@@ -26,25 +26,25 @@ jobs:
       - run: "echo var for env2 is: ${{ vars.ENV_VAR }}"
       - run: echo ${{ vars.ENV_OUTSIDE }}
 
-  # reused-job:
-  #   #environment: env_2
-  #   name: test-reused-job
-  #   #uses: ./.github/workflows/reuse.yaml
-  #   uses: kayamuskas/workflows/.github/workflows/reuse.yaml@main
-  #   #with:
-  #    # test_secret: "${{ env.buildConfiguration }}" # <- here's bug
-  #     #test_secret: "just test"
-  #   #secrets: inherit
-  #   secrets:
-  #    # SECRET_KEY: $buildConfiguration
-  #     #SECRET_KEY: ${{ env.buildConfiguration }}
-  #     SECRET_KEY: ${{ secrets.SOME_SECRET }}
+  reused-job:
+    environment: env_2
+    name: test-reused-job
+    #uses: ./.github/workflows/reuse.yaml
+    uses: kayamuskas/workflows/.github/workflows/reuse.yaml@main
+    #with:
+     # test_secret: "${{ env.buildConfiguration }}" # <- here's bug
+      #test_secret: "just test"
+    #secrets: inherit
+    secrets:
+     # SECRET_KEY: $buildConfiguration
+      #SECRET_KEY: ${{ env.buildConfiguration }}
+      SECRET_KEY: ${{ secrets.SOME_SECRET }}
 
-  # calling-job:
-  #   needs: [setup]
-  #   name: Call reusable workflow for services
-  #   uses: ./.github/workflows/matrix_build.yaml
-  #   with:
-  #     services: '["api-1",
-  #                 "api-3"
-  #       ]'
+  calling-job:
+    needs: [setup]
+    name: Call reusable workflow for services
+    uses: ./.github/workflows/matrix_build.yaml
+    with:
+      services: '["api-1",
+                  "api-3"
+        ]'
