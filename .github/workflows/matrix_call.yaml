@@ -4,13 +4,15 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        type: choice
-        description: "Environment to deploy"
-        required: true
-        default: "env_1"
-        options:
-          - env_1
-          - env_2
+        type: environment
+#      environment:
+#        type: choice
+#        description: "Environment to deploy"
+#        required: true
+#        default: "env_1"
+#        options:
+#          - env_1
+#          - env_2
 
   push:
     branches:
