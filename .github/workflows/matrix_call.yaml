@@ -30,7 +30,8 @@ jobs:
       - name: Init
         run: |
           echo ${{ github.event.inputs.environment }}
-          echo ${{ github.event.actor.login }}
+          echo ${{ github.actor }}
+          echo ${{ github.actor.login }}
 
   setup:
     name: Setup variables
