@@ -27,8 +27,9 @@ jobs:
     name: Initial job
     runs-on: ubuntu-latest
     steps:
-    - run: |
-      echo github.event.inputs.environment
+      - name: Init
+        run: |
+          echo github.event.inputs.environment
 
   setup:
     name: Setup variables
