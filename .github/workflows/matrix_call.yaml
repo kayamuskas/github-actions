@@ -23,6 +23,13 @@ env:
   buildConfiguration: 'tipa release'
 
 jobs:
+  inititial:
+    name: Initial job
+    runs-on: ubuntu-latest
+    steps:
+      run: |
+        echo github.event.inputs.environment
+
   setup:
     name: Setup variables
     runs-on: ubuntu-latest
