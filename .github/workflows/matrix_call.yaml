@@ -56,7 +56,7 @@ jobs:
   build:
     #environment:
     #  name: ${{ github.event.inputs.environment }}
-    #environment: env_2
+    environment: env_2
     #runs-on: ubuntu-latest
     name: Build test-reused-job
     #uses: ./.github/workflows/reuse.yaml
