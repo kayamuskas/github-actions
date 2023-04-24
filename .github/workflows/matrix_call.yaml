@@ -13,6 +13,10 @@ on:
 #        options:
 #          - env_1
 #          - env_2
+      app_version:
+        description: "Docker image tag to deploy, if empty will build new version"
+        required: false
+        default: ""
 
   push:
     branches:
@@ -27,15 +31,18 @@ jobs:
     name: Setup variables
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
       - name: Get branch name
         id: extract_branch
         run: echo "branch_name=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
       - name: Show initial info
         run: |
           echo "Environment is: ${{ github.event.inputs.environment }}"
-          echo "Initiated by: ${{ github.actor }}"
+          echo "Initiated by: ${{ github.actor.login }}"
           echo "Branch is: ${{ github.head_ref || github.ref_name }}"
+    outputs:
+      branch_name: ${{ steps.extract_branch.outputs.branch_name }}
 
   only-branch-test-job:
     environment: ${{ github.event.inputs.environment }}
@@ -46,12 +53,15 @@ jobs:
       - run: "echo var for ${{ github.event.inputs.environment }} is: ${{ vars.ENV_VAR }}"
       - run: echo ${{ vars.ENV_OUTSIDE }}
 
-  reused-job:
+  build:
+    environment:
+      name: ${{ github.event.inputs.environment }}
     #environment: env_2
     #runs-on: ubuntu-latest
     name: test-reused-job
     #uses: ./.github/workflows/reuse.yaml
     uses: kayamuskas/workflows/.github/workflows/reuse.yaml@main
+    if: github.event.inputs.app_version == ''
     with:
       environment: ${{ github.event.inputs.environment }}
      # test_secret: "${{ env.buildConfiguration }}" # <- here's bug
