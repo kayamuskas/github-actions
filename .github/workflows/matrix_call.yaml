@@ -39,7 +39,7 @@ jobs:
       - name: Show initial info
         run: |
           echo "Environment is: ${{ github.event.inputs.environment }}"
-          echo "Initiated by: ${{ github.actor.login }}"
+          echo "Initiated by: ${{ github.actor }}"
           echo "Branch is: ${{ github.head_ref || github.ref_name }}"
     outputs:
       branch_name: ${{ steps.extract_branch.outputs.branch_name }}
