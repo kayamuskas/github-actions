@@ -1,4 +1,4 @@
-name: Main Workflow
+name: Deploy [dev|qa]
 
 on:
   workflow_dispatch:
