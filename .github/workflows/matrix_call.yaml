@@ -34,8 +34,8 @@ jobs:
       - name: Show initial info
         run: |
           echo "Environment is: ${{ github.event.inputs.environment }}"
-          echo "Initiated by: ${{ github.actor.login }}"
-          echo "Branch is: ${branch_name}"
+          echo "Initiated by: ${{ github.actor }}"
+          echo "Branch is: ${{ github.ref }}"
 
   only-branch-test-job:
     environment: ${{ github.event.inputs.environment }}
