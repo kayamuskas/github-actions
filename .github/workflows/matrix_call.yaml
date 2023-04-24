@@ -54,8 +54,8 @@ jobs:
       - run: echo ${{ vars.ENV_OUTSIDE }}
 
   build:
-    environment:
-      name: ${{ github.event.inputs.environment }}
+    #environment:
+    #  name: ${{ github.event.inputs.environment }}
     #environment: env_2
     #runs-on: ubuntu-latest
     name: test-reused-job
