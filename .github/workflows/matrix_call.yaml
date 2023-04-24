@@ -23,21 +23,19 @@ env:
   buildConfiguration: 'tipa release'
 
 jobs:
-  inititial:
-    name: Initial job
-    runs-on: ubuntu-latest
-    steps:
-      - name: Init
-        run: |
-          echo ${{ github.event.inputs.environment }}
-          echo ${{ github.actor }}
-          echo ${{ github.actor.login }}
-
   setup:
     name: Setup variables
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Get branch name
+        id: extract_branch
+        run: echo "branch_name=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
+      - name: Show initial info
+        run: |
+          echo "Environment is: ${{ github.event.inputs.environment }}"
+          echo "Initiated by: ${{ github.actor.login }}"
+          echo "Branch is: ${branch_name}"
 
   only-branch-test-job:
     environment: ${{ github.event.inputs.environment }}
