@@ -44,15 +44,6 @@ jobs:
     outputs:
       branch_name: ${{ steps.extract_branch.outputs.branch_name }}
 
-  only-branch-test-job:
-    environment: ${{ github.event.inputs.environment }}
-    name: branch-test
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo ${{ env.buildConfiguration }}
-      - run: "echo var for ${{ github.event.inputs.environment }} is: ${{ vars.ENV_VAR }}"
-      - run: echo ${{ vars.ENV_OUTSIDE }}
-
   build:
     #environment:
     #  name: ${{ github.event.inputs.environment }}
@@ -82,3 +73,13 @@ jobs:
   #     services: '["api-1",
   #                 "api-3"
   #       ]'
+
+  only-branch-test-job:
+    needs: [build]
+    environment: ${{ github.event.inputs.environment }}
+    name: branch-test
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${{ env.buildConfiguration }}
+      - run: "echo var for ${{ github.event.inputs.environment }} is: ${{ vars.ENV_VAR }}"
+      - run: echo ${{ vars.ENV_OUTSIDE }}
