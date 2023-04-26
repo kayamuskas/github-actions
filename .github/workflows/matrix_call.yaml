@@ -77,7 +77,7 @@ jobs:
   only-branch-test-job:
     needs: [build]
 #    if: always()
-    if: needs.build.result == skipped
+    if: needs.build.result == cancelled
 #    if: ${{ skipped() }}
     environment: ${{ github.event.inputs.environment }}
     name: branch-test
