@@ -75,7 +75,7 @@ jobs:
   #       ]'
 
   only-branch-test-job:
-    needs: [setup, build]
+    needs: [build]
     if: cancelled()
     environment: ${{ github.event.inputs.environment }}
     name: branch-test
