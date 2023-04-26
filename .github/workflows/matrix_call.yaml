@@ -75,7 +75,8 @@ jobs:
   #       ]'
 
   only-branch-test-job:
-    needs: [build]
+    needs: [setup, build]
+    if: success() || cancelled()
     environment: ${{ github.event.inputs.environment }}
     name: branch-test
     runs-on: ubuntu-latest
