@@ -78,7 +78,7 @@ jobs:
     needs: [build]
 #    if: |
 #      !failure() && !cancelled()
-    if: skipped()
+    if: ${{ skipped() }}
 #    if: needs.build.result == cancelled
 #    if: ${{ skipped() }}
     environment: ${{ github.event.inputs.environment }}
