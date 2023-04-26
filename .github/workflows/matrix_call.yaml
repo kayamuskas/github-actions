@@ -80,7 +80,8 @@ jobs:
 #      !failure() && !cancelled()
 #    if: ${{ skipped() }}
 #    if: needs.build.result == cancelled
-    if: ${{ !failure() && needs.build.conclusion == 'skipped' }}
+#    if: ${{ !failure() && needs.build.conclusion == 'skipped' }}
+    if: needs.build.conclusion == 'skipped'
 #    if: ${{ cancelled() }}
     environment: ${{ github.event.inputs.environment }}
     name: branch-test
