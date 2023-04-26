@@ -78,9 +78,9 @@ jobs:
     needs: [build]
 #    if: |
 #      !failure() && !cancelled()
-    if: ${{ skipped() }}
-#    if: needs.build.result == cancelled
 #    if: ${{ skipped() }}
+#    if: needs.build.result == cancelled
+    if: ${{ cancelled() }}
     environment: ${{ github.event.inputs.environment }}
     name: branch-test
     runs-on: ubuntu-latest
