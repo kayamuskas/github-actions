@@ -80,7 +80,8 @@ jobs:
 #      !failure() && !cancelled()
 #    if: ${{ skipped() }}
 #    if: needs.build.result == cancelled
-    if: ${{ cancelled() }}
+    if: ${{ !failure() && needs.demo.conclusion == 'skipped' }}
+#    if: ${{ cancelled() }}
     environment: ${{ github.event.inputs.environment }}
     name: branch-test
     runs-on: ubuntu-latest
