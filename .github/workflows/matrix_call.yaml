@@ -49,9 +49,13 @@ jobs:
     #  name: ${{ github.event.inputs.environment }}
     #environment: env_2
     #runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
+    steps:
+      - name: test
+        run: exit 1
     name: Build test-reused-job
     #uses: ./.github/workflows/reuse.yaml
-    uses: kayamuskas/workflows/.github/workflows/reuse.yaml@main
+#    uses: kayamuskas/workflows/.github/workflows/reuse.yaml@main
     if: github.event.inputs.app_version == ''
     with:
       environment: ${{ github.event.inputs.environment }}
