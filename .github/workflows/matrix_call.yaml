@@ -57,8 +57,8 @@ jobs:
     #uses: ./.github/workflows/reuse.yaml
 #    uses: kayamuskas/workflows/.github/workflows/reuse.yaml@main
     if: github.event.inputs.app_version == ''
-    with:
-      environment: ${{ github.event.inputs.environment }}
+#    with:
+#      environment: ${{ github.event.inputs.environment }}
      # test_secret: "${{ env.buildConfiguration }}" # <- here's bug
       #test_secret: "just test"
     #secrets: inherit
