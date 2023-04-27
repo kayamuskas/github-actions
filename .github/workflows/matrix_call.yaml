@@ -33,6 +33,7 @@ jobs:
     with:
       #services: ${{ matrix.services }}}
       environment: env_1
-      services:
-        - api-1
-        - api-3
+      services: '{ "services": { "api-1": "1", "api-2": "2" }}'
+#      services:
+#        - api-1
+#        - api-3
