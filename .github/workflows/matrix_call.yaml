@@ -73,8 +73,8 @@ jobs:
   calling-job:
     needs: [setup]
     name: Call reusable workflow for services
-    #uses: ./.github/workflows/matrix_build.yaml
-    uses: kayamuskas/github-actions/.github/workflows/matrix_build.yaml@main
+    uses: ./.github/workflows/matrix_build.yaml
+    #uses: kayamuskas/github-actions/.github/workflows/matrix_build.yaml@main
     with:
       services: ["api-1", "api-3"]
 
