@@ -37,4 +37,5 @@ jobs:
     uses: kayamuskas/workflows/.github/workflows/reuse.yaml@main
     with:
       services: ${{ matrix.services }}}
+      environment: env_1
       #services: ["api-1", "api-3"]
