@@ -28,14 +28,9 @@ env:
 
 jobs:
   calling_job:
-    strategy:
-      matrix:
-        services:
-          - api-1
-          - api-3
     name: Call reusable workflow for services
     uses: kayamuskas/workflows/.github/workflows/reuse.yaml@main
     with:
-      services: ${{ matrix.services }}}
+      #services: ${{ matrix.services }}}
       environment: env_1
-      #services: ["api-1", "api-3"]
+      services: ["api-1", "api-3"]
