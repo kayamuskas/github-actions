@@ -27,74 +27,8 @@ env:
   buildConfiguration: 'tipa release'
 
 jobs:
-  setup:
-    if: github.event.inputs.app_version == ''
-    name: Setup variables
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Get branch name
-        id: extract_branch
-        run: echo "branch_name=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
-      - name: Show initial info
-        run: |
-          echo "Environment is: ${{ github.event.inputs.environment }}"
-          echo "Initiated by: ${{ github.actor }}"
-          echo "Branch is: ${{ github.head_ref || github.ref_name }}"
-    outputs:
-      branch_name: ${{ steps.extract_branch.outputs.branch_name }}
-
-  build:
-    #environment:
-    #  name: ${{ github.event.inputs.environment }}
-    #environment: env_2
-    #runs-on: ubuntu-latest
-    runs-on: ubuntu-latest
-    steps:
-      - name: test
-        run: exit 1
-    name: Build test-reused-job
-    #uses: ./.github/workflows/reuse.yaml
-#    uses: kayamuskas/workflows/.github/workflows/reuse.yaml@main
-    if: github.event.inputs.app_version == ''
-#    with:
-#      environment: ${{ github.event.inputs.environment }}
-     # test_secret: "${{ env.buildConfiguration }}" # <- here's bug
-      #test_secret: "just test"
-    #secrets: inherit
-    #secrets:
-    #  SECRET_KEY: ${{ secrets.SECRET_KEY }}
-    #secrets:
-     # SECRET_KEY: $buildConfiguration
-      #SECRET_KEY: ${{ env.buildConfiguration }}
-      #SECRET_KEY: ${{ secrets.SOME_SECRET }}
-
-  calling-job:
-    needs: [setup]
+  calling_job:
     name: Call reusable workflow for services
     uses: ./.github/workflows/matrix_build.yaml
-    #uses: kayamuskas/github-actions/.github/workflows/matrix_build.yaml@main
     with:
       services: ["api-1", "api-3"]
-
-  only-branch-test-job:
-    needs: [setup, build]
-    if: ${{ !failure() || needs.build.conclusion == 'skipped' || needs.setup.conclusion == 'skipped' }}
-#    if: |
-#      !failure() && !cancelled()
-#    if: ${{ skipped() }}
-#    if: needs.build.result == cancelled
-#    if: |
-#      ${{ !failure() || needs.build.conclusion == 'skipped' }}
-#      ${{ !failure() || needs.setup.conclusion == 'skipped' }}
-#    if: ${{ success() || needs.build.conclusion == 'skipped' }} # https://github.com/actions/runner/issues/2205#issuecomment-1400087739
-#    if: needs.build.conclusion == 'skipped'
-#    if: ${{ cancelled() }}
-    environment: ${{ github.event.inputs.environment }}
-    name: branch-test
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo ${{ env.buildConfiguration }}
-      - run: "echo var for ${{ github.event.inputs.environment }} is: ${{ vars.ENV_VAR }}"
-      - run: echo ${{ vars.ENV_OUTSIDE }}
