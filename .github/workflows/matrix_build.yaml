@@ -10,21 +10,21 @@ on:
         default: sample
 
 jobs:
-  my-job:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Retrieve matrix_config output
-        run: |
-          echo ::set-output name=matrix_config::'[{"ECS_SERVICE": "api-1", "PROJECT_NAME": "Platform.Api.1", "SERVICE_PATH": "api-1"}, {"ECS_SERVICE": "api-2", "PROJECT_NAME": "Platform.Api.2", "SERVICE_PATH": "api-2"}, {"ECS_SERVICE": "api-3", "PROJECT_NAME": "Platform.Api.3", "SERVICE_PATH": "api-3"}]'
-        id: matrix_config
+#  my-job:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Retrieve matrix_config output
+#        run: |
+#          echo ::set-output name=matrix_config::'[{"ECS_SERVICE": "api-1", "PROJECT_NAME": "Platform.Api.1", "SERVICE_PATH": "api-1"}, {"ECS_SERVICE": "api-2", "PROJECT_NAME": "Platform.Api.2", "SERVICE_PATH": "api-2"}, {"ECS_SERVICE": "api-3", "PROJECT_NAME": "Platform.Api.3", "SERVICE_PATH": "api-3"}]'
+#        id: matrix_config
 
-      - name: Parse JSON output
-        id: parse_output
-        run: |
+#      - name: Parse JSON output
+#        id: parse_output
+#        run: |
           echo ${{ steps.matrix_config.outputs.matrix_config }} | jq -r
       
-      - name: Print output to console
-        run: echo ${{ steps.parse_output.outputs }}
+      # - name: Print output to console
+      #   run: echo ${{ steps.parse_output.outputs }}
 
                   # #echo "${{ steps.matrix_config.outputs.matrix_config }}"
                   # echo "${{ fromJSON(steps.matrix_config.outputs.matrix_config).ECS_SERVICE }}"
@@ -74,21 +74,13 @@ jobs:
 #           # # echo "PROJECT_NAME=${{ matrix.PROJECT_NAME }}"
 #           # # echo "SERVICE_PATH=${{ matrix.SERVICE_PATH }}"
 
-  # build:
-  #   strategy:
-  #     matrix:
-  #       service: '${{ toJSON(file.path('./.scripts/services_matrix_config.yaml')) }}'
-  #       #matrix-config: '${{ toJSON(fromFile(".scripts/services_matrix_config.yml")) }}'
-  #       include:
-  #         - service: ${{fromJson(inputs.services)}}
-  #           build: true
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout code # ???
-  #       uses: actions/checkout@v2
-  #     - name: Build Service
-  #       if: matrix.build == 'true'
-  #       run: |
-  #         echo "Building ${{ matrix.service.ECS_SERVICE }}"
-  #         echo "Using project name: ${{ matrix.service.PROJECT_NAME }}"
-  #         echo "Using service path: ${{ matrix.service.SERVICE_PATH }}"
+  build:
+    strategy:
+      matrix:
+        service: ${{ inputs.services }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build Service
+        run: |
+          echo "Building ${{ matrix.service }}"
+
