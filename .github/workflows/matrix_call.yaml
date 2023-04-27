@@ -84,9 +84,8 @@ jobs:
 #      !failure() && !cancelled()
 #    if: ${{ skipped() }}
 #    if: needs.build.result == cancelled
-    if: |
-      (${{ !failure() || needs.build.conclusion == 'skipped' }}) &&
-      (${{ !failure() || needs.setup.conclusion == 'skipped' }})
+    if: | !failure() ||
+      (needs.build.conclusion == 'skipped' || needs.setup.conclusion == 'skipped' }}))
 #    if: ${{ success() || needs.build.conclusion == 'skipped' }} # https://github.com/actions/runner/issues/2205#issuecomment-1400087739
 #    if: needs.build.conclusion == 'skipped'
 #    if: ${{ cancelled() }}
