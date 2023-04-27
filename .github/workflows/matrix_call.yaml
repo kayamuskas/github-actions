@@ -79,7 +79,7 @@ jobs:
   #       ]'
 
   only-branch-test-job:
-    needs: [build]
+    needs: [setup, build]
     if: ${{ !failure() || needs.build.conclusion == 'skipped' }}
 #    if: |
 #      !failure() && !cancelled()
