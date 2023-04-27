@@ -28,6 +28,7 @@ env:
 
 jobs:
   setup:
+    if: github.event.inputs.app_version == ''
     name: Setup variables
     runs-on: ubuntu-latest
     steps:
@@ -38,7 +39,7 @@ jobs:
         run: echo "branch_name=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
       - name: Show initial info
         run: |
-          exit 1 # fail for debug
+#          exit 1 # fail for debug
           echo "Environment is: ${{ github.event.inputs.environment }}"
           echo "Initiated by: ${{ github.actor }}"
           echo "Branch is: ${{ github.head_ref || github.ref_name }}"
