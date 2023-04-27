@@ -31,4 +31,7 @@ jobs:
     name: Call reusable workflow for services
     uses: kayamuskas/workflows/.github/workflows/reuse.yaml@main
     with:
-      services: ["api-1", "api-3"]
+      #services: ["api-1", "api-3"]
+      services:
+        - api-1
+        - api-3
