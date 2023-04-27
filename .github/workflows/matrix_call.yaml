@@ -29,6 +29,6 @@ env:
 jobs:
   calling_job:
     name: Call reusable workflow for services
-    uses: ./.github/workflows/matrix_build.yaml
+    uses: kayamuskas/workflows/.github/workflows/reuse.yaml@main
     with:
       services: ["api-1", "api-3"]
