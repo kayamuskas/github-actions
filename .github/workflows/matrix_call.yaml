@@ -31,13 +31,10 @@ jobs:
     name: Call reusable workflow for services
     uses: kayamuskas/workflows/.github/workflows/reuse.yaml@main
     with:
-      some_envs: |
-        v_1=1
-        v_2=2
-#      some_envs: '[
-#        "v_1=1",
-#        "v_2=2"
-#      ]'
+#      some_envs: |
+#        v_1=1
+#        v_2=2
+      some_envs: '[ "v_1=1", "v_2=2" ]'
       #services: ${{ matrix.services }}}
       environment: env_1
       # services:
