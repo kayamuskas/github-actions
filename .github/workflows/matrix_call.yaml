@@ -44,7 +44,7 @@ jobs:
       services: '[
         "api-1",
         "api-2",
-        "api-3"
-      ]' # it works
+        "api-3",
+        ]' # it works
       #services: 'api-1, api-2, api-3'
 #      services: '{ "services": { "api-1": "1", "api-2": "2" }}'
