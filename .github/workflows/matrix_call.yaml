@@ -37,14 +37,14 @@ jobs:
 #      some_envs: '[ "v_1=1", "v_2=2" ]'
       #services: ${{ matrix.services }}}
       environment: env_1
-      # services:
-      #   - api-1
-      #   - api-2
-      #   - api-3
-      services: '[
-        "api-1",
-        "api-2",
-        "api-3"
-      ]' # it works
+      services:
+        - api-1
+        - api-2
+        - api-3
+#      services: '[
+#        "api-1",
+#        "api-2",
+#        "api-3"
+#      ]' # it works
       #services: 'api-1, api-2, api-3'
 #      services: '{ "services": { "api-1": "1", "api-2": "2" }}'
